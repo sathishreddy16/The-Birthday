@@ -379,18 +379,9 @@
   }
   .timeline-item.revealed { opacity: 1; transform: translateY(0); }
 
-  .tl-node-col {
-    display: flex; align-items: center; justify-content: center;
-    order: 1;
-  }
-  .tl-content {
-    padding: 0 0.5rem;
-    width: 100%;
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .tl-empty { display: none; }
+  /* Single column: node first, then content */
+  .tl-node-col { order: 1; justify-content: center; }
+  .tl-content { order: 2; text-align: center; }
 
   .tl-node-col {
     display: flex; align-items: center; justify-content: center;
@@ -408,6 +399,9 @@
 
   .tl-content {
     padding: 0 0.5rem;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
   }
 
   .tl-photo-wrap {
@@ -459,6 +453,8 @@
     line-height: 1.6;
   }
 
+  .tl-empty { display: none; }
+  .timeline-item .tl-photo-wrap { margin-left: 0; }
 
   /* Lightbox */
   #lightbox {
@@ -796,7 +792,7 @@
       </div>
     </div>
 
- <div class="timeline-item" data-year="Year 3">
+    <div class="timeline-item" data-year="Year 3">
       <div class="tl-content">
         <div class="tl-photo-wrap" onclick="openLightbox(this)">
           <img src="image_3.jpeg" alt="Finding Her Voice">
@@ -820,7 +816,7 @@
       </div>
     </div>
 
-   <div class="timeline-item" data-year="Year 5">
+    <div class="timeline-item" data-year="Year 5">
       <div class="tl-content">
         <div class="tl-photo-wrap" onclick="openLightbox(this)">
           <img src="image_5.jpeg" alt="Right Now">
@@ -855,7 +851,7 @@
     <div class="section-divider" style="background:linear-gradient(90deg,transparent,rgba(228,130,154,0.5),transparent);"></div>
 
     <div class="video-frame" id="videoFrame">
-      <video id="montageVideo" width="100%" height="100%" controls style="border-radius: 16px;">
+      <video width="100%" height="100%" controls style="border-radius: 16px;">
         <source src="lekha_video.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -976,16 +972,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
 // ── MUSIC ──
 let musicPlaying=false;
 const audio=document.getElementById('bgMusic');
-const montageVideo=document.getElementById('montageVideo');
-if(montageVideo){
-  montageVideo.addEventListener('play',()=>{
-    if(!audio.paused){
-      audio.pause();
-      musicPlaying=false;
-      document.getElementById('musicBtn').textContent='🎵';
-    }
-  });
-}
 function playBeginningMusic(){
   if (!musicPlaying) {
     audio.play().then(() => {
